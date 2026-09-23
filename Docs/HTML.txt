@@ -1,0 +1,258 @@
+<div class="docs-shell" id="top">
+  <aside class="docs-sidebar">
+    <a class="brand" href="#top">
+      <span class="brand-mark">R</span>
+      <span><strong>Ruvia Code</strong><small>Developer Reference · v6.1</small></span>
+    </a>
+
+    <nav class="docs-nav" aria-label="Documentação">
+      <span class="nav-label">COMECE AQUI</span>
+      <a href="#intro"><b>01</b> Introdução</a>
+      <a href="#quickstart"><b>02</b> Quick start</a>
+      <a href="#mental"><b>03</b> Modelo mental</a>
+
+      <span class="nav-label">LINGUAGEM</span>
+      <a href="#bindings"><b>04</b> Bindings</a>
+      <a href="#loops"><b>05</b> Loops</a>
+      <a href="#conditions"><b>06</b> Condições</a>
+      <a href="#filters"><b>07</b> Filtros</a>
+
+      <span class="nav-label">RUVIA</span>
+      <a href="#data"><b>08</b> Data Context</a>
+      <a href="#actions"><b>09</b> Actions</a>
+      <a href="#forms"><b>10</b> Formulários</a>
+      <a href="#components"><b>11</b> Componentes</a>
+
+      <span class="nav-label">DESIGN & SISTEMA</span>
+      <a href="#css"><b>12</b> CSS & tokens</a>
+      <a href="#security"><b>13</b> Segurança</a>
+      <a href="#recipes"><b>14</b> Receitas</a>
+      <a href="#reference"><b>15</b> Referência</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <span class="status-dot"></span>
+      <div><strong>Documentação viva</strong><small>Construída em Ruvia Code</small></div>
+    </div>
+  </aside>
+
+  <main class="docs-main">
+    <header class="docs-topbar">
+      <a class="mobile-brand" href="#top"><span class="brand-mark small">R</span><strong>Ruvia Code</strong></a>
+      <div class="topbar-path"><span>Ruvia</span><i>/</i><strong>Code</strong><i>/</i><span>Docs</span></div>
+      <div class="topbar-pill"><span></span> v6.1</div>
+    </header>
+
+    <section class="hero" id="intro">
+      <div class="hero-copy">
+        <div class="eyebrow"><span>RUVIA CODE</span><i></i><span>DOCUMENTAÇÃO OFICIAL</span></div>
+        <h1>Programe o visual.<br><em>A Ruvia cuida do sistema.</em></h1>
+        <p class="hero-lead">Crie páginas e seções inteiras em HTML + CSS, conecte dados reais do negócio e use ações nativas sem entregar Firebase ou JavaScript privado ao site.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#quickstart">Começar agora <span>↘</span></a>
+          <a class="btn ghost" href="#reference">Abrir referência</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>HTML</strong><span>Estrutura livre</span></div>
+          <div><strong>CSS</strong><span>Direção visual</span></div>
+          <div><strong>RTL</strong><span>Dados & lógica</span></div>
+          <div><strong>Bridge</strong><span>Ações seguras</span></div>
+        </div>
+      </div>
+
+      <div class="hero-terminal">
+        <div class="terminal-bar"><span class="lights"><i></i><i></i><i></i></span><small>index.ruvia</small><b>LIVE</b></div>
+        <pre><code><span class="c-dim">&lt;section class="store"&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span><span class="c-bind">{{ business.name }}</span><span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;h1&gt;</span>Escolhas da semana<span class="c-tag">&lt;/h1&gt;</span>
+
+  <span class="c-flow">{% for product in products | limit:3 %}</span>
+    <span class="c-tag">&lt;article&gt;</span>
+      <span class="c-tag">&lt;h2&gt;</span><span class="c-bind">{{ product.name }}</span><span class="c-tag">&lt;/h2&gt;</span>
+      <span class="c-tag">&lt;strong&gt;</span><span class="c-bind">{{ product.price | currency }}</span><span class="c-tag">&lt;/strong&gt;</span>
+    <span class="c-tag">&lt;/article&gt;</span>
+  <span class="c-flow">{% endfor %}</span>
+<span class="c-dim">&lt;/section&gt;</span></code></pre>
+        <div class="terminal-result"><span>→</span><div><small>CONTEXTO ATIVO</small><strong>Business + 3 produtos públicos</strong></div></div>
+      </div>
+    </section>
+
+    <section class="statement" id="mental">
+      <span class="section-number">01 / MODELO MENTAL</span>
+      <h2>Quatro camadas.<br><em>Uma página.</em></h2>
+      <p>Ruvia Code não tenta substituir HTML. Ele adiciona à web uma camada segura para conversar com o negócio.</p>
+      <div class="layer-grid">
+        <article><span>01</span><div class="layer-icon">&lt;/&gt;</div><h3>HTML</h3><p>Define a estrutura e a semântica da experiência.</p><small>VOCÊ CONTROLA</small></article>
+        <article><span>02</span><div class="layer-icon">✦</div><h3>CSS</h3><p>Controla composição, ritmo, tipografia e responsividade.</p><small>VOCÊ CONTROLA</small></article>
+        <article class="accent-card"><span>03</span><div class="layer-icon">{ }</div><h3>Ruvia Data</h3><p>Injeta Business, produtos, serviços e dados locais.</p><small>RUVIA CONECTA</small></article>
+        <article class="dark-card"><span>04</span><div class="layer-icon">↯</div><h3>Actions</h3><p>WhatsApp, formulários e Booking sem JavaScript arbitrário.</p><small>RUVIA EXECUTA</small></article>
+      </div>
+    </section>
+
+    <section class="doc-section" id="quickstart">
+      <div class="section-heading"><span class="section-number">02 / QUICK START</span><h2>Seu primeiro site conectado.</h2><p>Ative Página inteira em código, exponha os dados necessários e cole HTML + CSS. O contexto chega pronto.</p></div>
+      <div class="steps">
+        <article><b>1</b><div><h3>Ative o Code Mode</h3><p>No Site Editor, abra <strong>Código</strong> e habilite “Usar página inteira em código”.</p></div></article>
+        <article><b>2</b><div><h3>Escolha os dados</h3><p>Na aba Dados, permita somente Business, produtos, serviços ou recursos que o site realmente precisa.</p></div></article>
+        <article><b>3</b><div><h3>Escreva a página</h3><p>Use HTML e CSS normais. Adicione bindings e ações Ruvia onde houver conteúdo dinâmico.</p></div></article>
+        <article><b>4</b><div><h3>Publique</h3><p>A Ruvia sanitiza o código, gera o contexto público e serve o resultado em um sandbox seguro.</p></div></article>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><div><span>HTML</span><strong>hello-ruvia.html</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.quickstart }}">Copiar código</button></div>
+        <pre><code>{{ data.snippets.quickstart }}</code></pre>
+      </div>
+    </section>
+
+    <section class="doc-section split-doc" id="bindings">
+      <div class="section-heading sticky-title"><span class="section-number">03 / BINDINGS</span><h2>Dados onde o conteúdo precisa estar.</h2><p>Bindings usam <code>{{ data.inline.binding }}</code>. O valor é resolvido no contexto e escapado antes de entrar no HTML.</p></div>
+      <div class="doc-stack">
+        <div class="code-card"><div class="code-head"><div><span>HTML</span><strong>binding básico</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.binding }}">Copiar</button></div><pre><code>{{ data.snippets.binding }}</code></pre></div>
+        <div class="callout"><span>POR QUE ESCAPAR?</span><p>Um nome de produto é conteúdo, não código. A Ruvia impede que dados públicos virem HTML executável por acidente.</p></div>
+        <div class="mini-reference">
+          <div><code>business.name</code><span>Nome público do negócio</span></div>
+          <div><code>site.name</code><span>Nome do Site</span></div>
+          <div><code>data.headline</code><span>JSON local</span></div>
+          <div><code>product.name</code><span>Dentro de loop de produto</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section split-doc" id="loops">
+      <div class="section-heading sticky-title"><span class="section-number">04 / LOOPS</span><h2>Um layout. Quantos itens existirem.</h2><p>Percorra arrays públicos e combine filtros diretamente na origem do loop.</p></div>
+      <div class="doc-stack">
+        <div class="code-card"><div class="code-head"><div><span>RTL</span><strong>products loop</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.loop }}">Copiar</button></div><pre><code>{{ data.snippets.loop }}</code></pre></div>
+        <div class="api-table">
+          <div class="api-row head"><b>Loop helper</b><b>Retorno</b></div>
+          <div class="api-row"><code>loop.index</code><span>Índice começando em 0</span></div>
+          <div class="api-row"><code>loop.index1</code><span>Índice começando em 1</span></div>
+          <div class="api-row"><code>loop.first</code><span>true no primeiro item</span></div>
+          <div class="api-row"><code>loop.last</code><span>true no último item</span></div>
+          <div class="api-row"><code>loop.length</code><span>Total de itens</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section split-doc" id="conditions">
+      <div class="section-heading sticky-title"><span class="section-number">05 / CONDIÇÕES</span><h2>O site reage aos dados.</h2><p>Mostre, esconda ou altere partes da interface sem escrever JavaScript.</p></div>
+      <div class="doc-stack">
+        <div class="code-card"><div class="code-head"><div><span>RTL</span><strong>if / else</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.condition }}">Copiar</button></div><pre><code>{{ data.snippets.condition }}</code></pre></div>
+        <div class="operator-strip"><code>and</code><code>or</code><code>not</code><code>==</code><code>!=</code><code>&gt;</code><code>&lt;</code><code>&gt;=</code><code>&lt;=</code></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="filters">
+      <div class="section-heading"><span class="section-number">06 / FILTROS</span><h2>Transforme sem duplicar dados.</h2><p>Filtros formatam valores e transformam coleções antes da renderização.</p></div>
+      <div class="filter-grid">
+        {% for filter in data.filters %}
+          <article><code>{{ filter.name }}</code><p>{{ filter.desc }}</p><span>{{ filter.example }}</span></article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="doc-section data-section" id="data">
+      <div class="section-heading"><span class="section-number">07 / DATA CONTEXT</span><h2>Seu código vê uma projeção pública.<br>Não o banco privado.</h2><p>O editor decide quais fontes entram no contexto. Publicação leva apenas os campos seguros necessários.</p></div>
+      <div class="data-map">
+        <div class="data-source"><small>RUVIA BUSINESS</small><strong>Dados privados</strong><span>estoque · clientes · financeiro · notas</span></div>
+        <div class="data-gate"><i>→</i><b>PUBLIC<br>PROJECTION</b><i>→</i></div>
+        <div class="data-source public"><small>RUVIA CODE</small><strong>Contexto público</strong><span>business · products · services · resources</span></div>
+      </div>
+      <div class="schema-grid">
+        {% for schema in data.schemas %}
+          <article class="schema-card">
+            <div><span>{{ schema.kind }}</span><h3>{{ schema.name }}</h3><p>{{ schema.desc }}</p></div>
+            <pre><code>{{ schema.fields }}</code></pre>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="danger-note"><b>Nunca entram automaticamente</b><span>custo · vendas · clientes · movimentações · notas internas · histórico de estoque · autenticação · SDK Firebase</span></div>
+    </section>
+
+    <section class="doc-section split-doc" id="actions">
+      <div class="section-heading sticky-title"><span class="section-number">08 / ACTIONS</span><h2>Comportamento sem entregar JavaScript.</h2><p>Seu HTML pede uma ação. O bridge da Ruvia decide se ela é permitida e executa fora do sandbox.</p></div>
+      <div class="doc-stack">
+        <div class="bridge-diagram"><div><small>SEU HTML</small><strong>ruvia-action</strong></div><span>→</span><div class="bridge-core"><small>SAFE BRIDGE</small><strong>Ruvia</strong></div><span>→</span><div><small>HOST</small><strong>Ação autorizada</strong></div></div>
+        <div class="code-card"><div class="code-head"><div><span>ACTION</span><strong>WhatsApp customizado</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.whatsapp }}">Copiar</button></div><pre><code>{{ data.snippets.whatsapp }}</code></pre></div>
+        <div class="action-list">
+          <div><code>whatsapp</code><span>Abre conversa com mensagem contextual.</span></div>
+          <div><code>copy</code><span>Copia um valor pelo host seguro.</span></div>
+          <div><code>contact</code><span>Via formulário Ruvia.</span></div>
+          <div><code>booking_request</code><span>Via formulário de agendamento.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="forms">
+      <div class="section-heading"><span class="section-number">09 / FORMULÁRIOS</span><h2>O design é seu.<br>A infraestrutura continua sendo da Ruvia.</h2><p>Use markup próprio e apenas marque o tipo do formulário. A submissão chega na Inbox do negócio.</p></div>
+      <div class="two-code">
+        <div class="code-card"><div class="code-head"><div><span>FORM</span><strong>Contato</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.contactForm }}">Copiar</button></div><pre><code>{{ data.snippets.contactForm }}</code></pre></div>
+        <div class="code-card"><div class="code-head"><div><span>FORM</span><strong>Booking request</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.bookingForm }}">Copiar</button></div><pre><code>{{ data.snippets.bookingForm }}</code></pre></div>
+      </div>
+      <div class="field-reference">
+        <span>Campos reconhecidos</span>
+        <code>clientName</code><code>phone</code><code>email</code><code>message</code><code>serviceId</code><code>resourceId</code><code>preferredDate</code><code>startTime</code><code>notes</code>
+      </div>
+    </section>
+
+    <section class="doc-section" id="components">
+      <div class="section-heading"><span class="section-number">10 / COMPONENTES</span><h2>Atalhos quando você não precisa reinventar.</h2><p>Componentes Ruvia entregam uma implementação funcional pronta. Quando o visual precisar ser único, volte para markup customizado + actions.</p></div>
+      <div class="component-grid">
+        {% for component in data.components %}
+          <article><span>{{ component.tag }}</span><h3>{{ component.name }}</h3><p>{{ component.desc }}</p><pre><code>{{ component.code }}</code></pre></article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="doc-section css-section" id="css">
+      <div class="section-heading"><span class="section-number">11 / CSS & TOKENS</span><h2>Use o tema.<br>Ou quebre completamente a estética.</h2><p>Ruvia expõe tokens úteis, mas não obriga seu layout a parecer um template da plataforma.</p></div>
+      <div class="token-layout">
+        <div class="token-preview">
+          <div class="token-demo"><span>RUVIA TOKEN</span><h3>Identidade conectada</h3><p>Um componente pode herdar o Site sem conhecer os valores reais do tema.</p><button>Exemplo</button></div>
+        </div>
+        <div class="token-list">
+          {% for token in data.tokens %}
+            <div><code>{{ token.name }}</code><span>{{ token.desc }}</span></div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="code-card"><div class="code-head"><div><span>CSS</span><strong>tokens.css</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.tokens }}">Copiar</button></div><pre><code>{{ data.snippets.tokens }}</code></pre></div>
+    </section>
+
+    <section class="doc-section security-section" id="security">
+      <div class="section-heading"><span class="section-number">12 / SEGURANÇA</span><h2>Programável não significa irrestrito.</h2><p>Ruvia Code foi desenhado para dar liberdade visual sem transformar Sites em execução arbitrária dentro da aplicação.</p></div>
+      <div class="security-pipeline">
+        <div><b>01</b><strong>Template</strong><span>HTML + CSS + RTL</span></div><i>→</i>
+        <div><b>02</b><strong>Parser</strong><span>bindings & lógica</span></div><i>→</i>
+        <div><b>03</b><strong>Sanitizer</strong><span>HTML/CSS seguro</span></div><i>→</i>
+        <div><b>04</b><strong>Sandbox</strong><span>iframe isolado</span></div><i>→</i>
+        <div><b>05</b><strong>Bridge</strong><span>ações permitidas</span></div>
+      </div>
+      <div class="security-columns">
+        <article class="allowed"><span>PERMITIDO</span><h3>Liberdade de apresentação</h3><ul><li>HTML semântico</li><li>CSS responsivo</li><li>Bindings</li><li>Loops e condições</li><li>Filtros</li><li>Ruvia Actions</li><li>Formulários seguros</li></ul></article>
+        <article class="blocked"><span>BLOQUEADO</span><h3>Execução arbitrária</h3><ul><li>&lt;script&gt;</li><li>iframe / object / embed</li><li>handlers on*</li><li>javascript:</li><li>CSS @import</li><li>expression()</li><li>Firebase privado</li></ul></article>
+      </div>
+    </section>
+
+    <section class="doc-section recipes-section" id="recipes">
+      <div class="section-heading"><span class="section-number">13 / RECEITAS</span><h2>Do zero a uma vitrine conectada.</h2><p>Exemplos completos são melhores do que dez páginas de teoria. Comece daqui e destrua o layout até ele virar seu.</p></div>
+      <div class="recipe-hero">
+        <div><span>RECEITA 01</span><h3>Vitrine editorial conectada</h3><p>Business + produtos + disponibilidade + WhatsApp contextual.</p><ul><li>Ative Business</li><li>Exponha Produtos</li><li>Cole HTML e CSS</li><li>Publique</li></ul></div>
+        <div class="code-card dark-code"><div class="code-head"><div><span>HTML</span><strong>store.ruvia</strong></div><button ruvia-action="copy" ruvia-copy="{{ data.snippets.recipe }}">Copiar receita</button></div><pre><code>{{ data.snippets.recipe }}</code></pre></div>
+      </div>
+    </section>
+
+    <section class="doc-section reference-section" id="reference">
+      <div class="section-heading"><span class="section-number">14 / REFERÊNCIA RÁPIDA</span><h2>Cheat sheet.</h2><p>O que você provavelmente vai abrir em outra aba enquanto programa.</p></div>
+      <div class="cheat-grid">
+        {% for cheat in data.cheats %}
+          <article><span>{{ cheat.group }}</span><h3>{{ cheat.title }}</h3><pre><code>{{ cheat.code }}</code></pre></article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <footer class="docs-footer">
+      <div><span class="brand-mark">R</span><div><strong>Ruvia Code</strong><small>Construa sem desconectar.</small></div></div>
+      <p>Esta documentação é uma página normal criada com a própria tecnologia que documenta.</p>
+      <a href="#top">Voltar ao topo ↑</a>
+    </footer>
+  </main>
+</div>

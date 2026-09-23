@@ -1,0 +1,65 @@
+{
+  "inline": {
+    "binding": "{{ ... }}"
+  },
+  "snippets": {
+    "quickstart": "<main class=\"hero\">\n  <span>{{ business.name }}</span>\n  <h1>{{ data.headline }}</h1>\n  <p>{{ business.description }}</p>\n\n  <a ruvia-action=\"whatsapp\"\n     ruvia-message=\"Olá! Vim pelo site.\">\n    Falar agora\n  </a>\n</main>",
+    "binding": "<h1>{{ business.name }}</h1>\n<p>{{ business.description }}</p>\n<strong>{{ product.price | currency }}</strong>",
+    "loop": "{% for product in products | limit:6 %}\n  <article class=\"product\">\n    <span>0{{ loop.index1 }}</span>\n    <h3>{{ product.name }}</h3>\n    <strong>{{ product.price | currency }}</strong>\n  </article>\n{% endfor %}",
+    "condition": "{% if product.available %}\n  <button>Comprar agora</button>\n{% else %}\n  <span class=\"sold-out\">Esgotado</span>\n{% endif %}",
+    "whatsapp": "<button\n  class=\"buy-button\"\n  ruvia-action=\"whatsapp\"\n  ruvia-message=\"Quero saber mais sobre {{ product.name }}\">\n  Quero esse\n</button>",
+    "contactForm": "<form class=\"contact\" ruvia-form=\"contact\">\n  <input name=\"clientName\" placeholder=\"Seu nome\" required>\n  <input name=\"phone\" placeholder=\"WhatsApp\" required>\n  <input name=\"email\" type=\"email\" placeholder=\"E-mail\">\n  <textarea name=\"message\" placeholder=\"Como podemos ajudar?\"></textarea>\n  <button>Enviar mensagem</button>\n  <small data-ruvia-form-status></small>\n</form>",
+    "bookingForm": "<form class=\"booking\" ruvia-form=\"booking_request\">\n  <input name=\"clientName\" required>\n  <input name=\"phone\" required>\n  <select name=\"serviceId\">...</select>\n  <select name=\"resourceId\">...</select>\n  <input name=\"preferredDate\" type=\"date\" required>\n  <input name=\"startTime\" type=\"time\" required>\n  <textarea name=\"notes\"></textarea>\n  <button>Solicitar horário</button>\n  <small data-ruvia-form-status></small>\n</form>",
+    "tokens": ".hero {\n  background: var(--site-bg);\n  color: var(--site-ink);\n  font-family: var(--site-font);\n}\n\n.hero h1 {\n  font-family: var(--site-display);\n}\n\n.hero strong {\n  color: var(--site-accent);\n}",
+    "recipe": "<main class=\"store\">\n  <header>\n    <span>{{ business.name }}</span>\n    <h1>{{ data.headline }}</h1>\n  </header>\n\n  <section class=\"products\">\n    {% for product in products | limit:6 %}\n      <article>\n        <img src=\"{{ product.image }}\" alt=\"{{ product.name }}\">\n        <small>{{ product.category }}</small>\n        <h2>{{ product.name }}</h2>\n        <strong>{{ product.price | currency }}</strong>\n\n        {% if product.available %}\n          <button ruvia-action=\"whatsapp\"\n                  ruvia-message=\"Quero {{ product.name }}\">\n            Quero esse\n          </button>\n        {% else %}\n          <span>Esgotado</span>\n        {% endif %}\n      </article>\n    {% endfor %}\n  </section>\n</main>"
+  },
+  "filters": [
+    {"name":"currency","desc":"Formata valores monetários para exibição.","example":"{{ product.price | currency }}"},
+    {"name":"upper","desc":"Transforma texto em caixa alta.","example":"{{ business.name | upper }}"},
+    {"name":"lower","desc":"Transforma texto em caixa baixa.","example":"{{ product.category | lower }}"},
+    {"name":"capitalize","desc":"Capitaliza o valor textual.","example":"{{ product.name | capitalize }}"},
+    {"name":"default:\"...\"","desc":"Define fallback quando o valor estiver vazio.","example":"{{ business.city | default:\"Brasil\" }}"},
+    {"name":"length","desc":"Retorna o tamanho de uma coleção ou texto.","example":"{{ products | length }}"},
+    {"name":"limit:6","desc":"Limita uma coleção antes do loop.","example":"products | limit:6"},
+    {"name":"where","desc":"Filtra uma coleção por propriedade e valor.","example":"products | where:\"category\",\"Joias\""},
+    {"name":"sort","desc":"Ordena uma coleção por uma propriedade.","example":"products | sort:\"name\""},
+    {"name":"reverse","desc":"Inverte a ordem atual da coleção.","example":"products | reverse"},
+    {"name":"date","desc":"Formata valores reconhecidos como data.","example":"{{ value | date }}"},
+    {"name":"json","desc":"Serializa um valor para inspeção e debug.","example":"{{ product | json }}"}
+  ],
+  "schemas": [
+    {"kind":"SITE","name":"site","desc":"Metadados públicos do Site atual.","fields":"id\nname\ndescription\nslug"},
+    {"kind":"BUSINESS","name":"business","desc":"Perfil público seguro do negócio conectado.","fields":"id\nname\ntradeName\nsegment\nphone\nemail\ndescription\naddress\ncity\ninstagram\nlogoUrl"},
+    {"kind":"COLLECTION","name":"products[]","desc":"Produtos explicitamente expostos para o código.","fields":"id\nname\ncategory\nbrand\ndescription\nimage\nprice\nformattedPrice\navailable\nvariants[]"},
+    {"kind":"COLLECTION","name":"services[]","desc":"Serviços públicos selecionados no Site Editor.","fields":"id\nname\ndescription\ndurationMin\nprice\nformattedPrice\nresourceRequired\ncompatibleResourceIds[]"},
+    {"kind":"COLLECTION","name":"resources[]","desc":"Recursos/profissionais somente quando habilitados.","fields":"id\nname\nkind\ncapacity\nbookingMode"},
+    {"kind":"LOCAL JSON","name":"data","desc":"Dados livres definidos pelo próprio Site.","fields":"headline\nlinks[]\nqualquerCampoSeguro\nqualquerObjetoSeguro"}
+  ],
+  "components": [
+    {"tag":"<ruvia-whatsapp>","name":"WhatsApp","desc":"CTA pronto usando o telefone público do Business.","code":"<ruvia-whatsapp text=\"Olá! Vim pelo site.\">\n  Falar agora\n</ruvia-whatsapp>"},
+    {"tag":"<ruvia-contact-form>","name":"Contato","desc":"Cria um PublicRequest do tipo contact.","code":"<ruvia-contact-form button=\"Enviar\">\n</ruvia-contact-form>"},
+    {"tag":"<ruvia-booking-form>","name":"Booking","desc":"Cria booking_request usando serviços e recursos expostos.","code":"<ruvia-booking-form button=\"Solicitar horário\">\n</ruvia-booking-form>"},
+    {"tag":"<ruvia-products>","name":"Produtos rápidos","desc":"Renderização pronta quando personalização total não é necessária.","code":"<ruvia-products limit=\"6\" columns=\"3\">\n</ruvia-products>"},
+    {"tag":"<ruvia-services>","name":"Serviços rápidos","desc":"Lista funcional de serviços públicos do contexto.","code":"<ruvia-services limit=\"8\">\n</ruvia-services>"}
+  ],
+  "tokens": [
+    {"name":"--site-bg","desc":"Fundo principal configurado no Site."},
+    {"name":"--site-surface","desc":"Superfície secundária do tema."},
+    {"name":"--site-ink","desc":"Cor principal de texto."},
+    {"name":"--site-muted","desc":"Texto e elementos de menor contraste."},
+    {"name":"--site-accent","desc":"Cor de destaque do Site."},
+    {"name":"--site-accent-contrast","desc":"Cor legível sobre o accent."},
+    {"name":"--site-font","desc":"Fonte de corpo configurada."},
+    {"name":"--site-display","desc":"Fonte de títulos configurada."},
+    {"name":"--site-radius","desc":"Raio base do sistema visual."},
+    {"name":"--site-width","desc":"Largura de conteúdo definida pelo tema."}
+  ],
+  "cheats": [
+    {"group":"BINDING","title":"Imprimir valor","code":"{{ business.name }}\n{{ product.price | currency }}"},
+    {"group":"LOOP","title":"Percorrer coleção","code":"{% for product in products %}\n  {{ product.name }}\n{% endfor %}"},
+    {"group":"CONDITION","title":"Decidir conteúdo","code":"{% if product.available %}\n  Disponível\n{% else %}\n  Esgotado\n{% endif %}"},
+    {"group":"QUERY","title":"Filtrar + limitar","code":"{% for product in products | where:\"category\",\"Joias\" | limit:4 %}\n  ...\n{% endfor %}"},
+    {"group":"ACTION","title":"WhatsApp","code":"<button ruvia-action=\"whatsapp\"\n  ruvia-message=\"Olá!\">\n  Conversar\n</button>"},
+    {"group":"FORM","title":"Contato","code":"<form ruvia-form=\"contact\">\n  <input name=\"clientName\" required>\n  <button>Enviar</button>\n  <small data-ruvia-form-status></small>\n</form>"}
+  ]
+}

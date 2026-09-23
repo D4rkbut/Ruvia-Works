@@ -1,0 +1,133 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "memberships": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "$businessId": {
+          ".write": "auth != null && (auth.uid === $uid || root.child('businesses').child($businessId).child('members').child(auth.uid).child('role').val() === 'owner')"
+        }
+      }
+    },
+    "businesses": {
+      "$businessId": {
+        ".read": "auth != null && data.child('members').child(auth.uid).child('status').val() === 'active'",
+        ".write": "auth != null && !data.exists() && newData.child('profile').child('createdBy').val() === auth.uid && newData.child('members').child(auth.uid).child('role').val() === 'owner' && newData.child('members').child(auth.uid).child('status').val() === 'active'",
+        "profile": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'",
+          ".validate": "newData.hasChildren(['name','createdBy','createdAt'])"
+        },
+        "members": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'"
+        },
+        "modules": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'"
+        },
+        "subscription": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'"
+        },
+        "settings": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "core": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "commerce": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "finance": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "activity": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "scheduling": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        }
+      }
+    },
+    "siteMemberships": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        "$siteId": {
+          ".write": "auth != null && (auth.uid === $uid || root.child('sites').child($siteId).child('members').child(auth.uid).child('role').val() === 'owner')"
+        }
+      }
+    },
+    "sites": {
+      "$siteId": {
+        ".read": "auth != null && data.child('members').child(auth.uid).child('status').val() === 'active'",
+        ".write": "auth != null && ((!data.exists() && newData.child('profile').child('createdBy').val() === auth.uid && newData.child('members').child(auth.uid).child('role').val() === 'owner' && newData.child('members').child(auth.uid).child('status').val() === 'active') || (!newData.exists() && data.child('members').child(auth.uid).child('role').val() === 'owner'))",
+        "profile": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'",
+          ".validate": "(!newData.child('name').exists() || (newData.child('name').isString() && newData.child('name').val().length <= 160)) && (!newData.child('slug').exists() || (newData.child('slug').isString() && newData.child('slug').val().length <= 60)) && (!newData.child('description').exists() || (newData.child('description').isString() && newData.child('description').val().length <= 240)) && (!newData.child('linkedBusinessId').exists() || (newData.child('linkedByUid').val() === auth.uid && root.child('businesses').child(newData.child('linkedBusinessId').val()).child('members').child(auth.uid).child('status').val() === 'active'))"
+        },
+        "members": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'"
+        },
+        "settings": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "draft": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('status').val() === 'active'"
+        },
+        "publication": {
+          ".write": "auth != null && data.parent().child('members').child(auth.uid).child('role').val() === 'owner'"
+        }
+      }
+    },
+    "publicSites": {
+      "$slug": {
+        ".read": true,
+        ".write": "auth != null && ((!newData.exists() && data.exists() && root.child('sites').child(data.child('siteId').val()).child('members').child(auth.uid).child('role').val() === 'owner') || (newData.exists() && root.child('sites').child(newData.child('siteId').val()).child('members').child(auth.uid).child('role').val() === 'owner'))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['siteId','slug','blocks','theme','version']) && newData.child('siteId').isString() && newData.child('slug').val() === $slug)"
+      }
+    },
+    "publicRequests": {
+      "$siteId": {
+        "$requestId": {
+          ".read": "auth != null && root.child('sites').child($siteId).child('members').child(auth.uid).child('status').val() === 'active'",
+          ".write": "(auth != null && root.child('sites').child($siteId).child('members').child(auth.uid).child('status').val() === 'active') || (!data.exists() && newData.child('siteId').val() === $siteId && newData.child('id').val() === $requestId && newData.child('status').val() === 'pending' && (newData.child('type').val() === 'contact' || newData.child('type').val() === 'booking_request') && root.child('sites').child($siteId).child('publication').child('published').val() === true)",
+          ".validate": "!newData.exists() || (newData.child('siteId').val() === $siteId && newData.child('id').val() === $requestId && (newData.child('type').val() === 'contact' || newData.child('type').val() === 'booking_request'))",
+          "clientName": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 120)"
+          },
+          "phone": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 80)"
+          },
+          "email": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 180)"
+          },
+          "message": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 2000)"
+          },
+          "notes": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 2000)"
+          },
+          "siteName": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 160)"
+          },
+          "preferredDate": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 10)"
+          },
+          "startTime": {
+            ".validate": "!newData.exists() || (newData.isString() && newData.val().length <= 5)"
+          }
+        }
+      }
+    },
+    "siteEntitlements": {
+      "$siteId": {
+        ".read": "auth != null && root.child('sites').child($siteId).child('members').child(auth.uid).child('status').val() === 'active'",
+        ".write": false
+      }
+    }
+  }
+}

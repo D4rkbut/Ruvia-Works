@@ -1,0 +1,17 @@
+RUVIA CODE DOCS — SITE NORMAL
+
+1. Crie um Site normal dentro da Ruvia.
+2. Abra Código.
+3. Ative "Usar página inteira em código".
+4. Ative "Ocultar cabeçalho automático" para a documentação ocupar a página inteira.
+5. Cole HTML.txt no campo HTML.
+6. Cole CSS.txt no campo CSS.
+7. Cole DATA.json no campo Dados / JSON local.
+8. A documentação não precisa de Business, Produtos, Serviços ou Recursos habilitados.
+9. Publique normalmente.
+10. Depois faça o botão Docs do editor apontar para o slug/URL publicado desse Site.
+
+IMPORTANTE
+- O site foi escrito usando apenas recursos suportados pelo Ruvia Code v6.1.
+- Os snippets que documentam {{ bindings }} e {% estruturas %} ficam dentro de DATA.json. Isso impede o parser de tentar executar a sintaxe mostrada como exemplo.
+- Os botões "Copiar" usam ruvia-action="copy", portanto são executados pelo bridge seguro da própria Ruvia.
